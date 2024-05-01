@@ -55,4 +55,10 @@ public class LentesServicioImpl implements LentesServicios {
         // Lógica para eliminar un lente por su ID desde el repositorio
         // lentesRepository.deleteById(id);
     }
+
+	@Override
+	public List<Lentes> obtenerTodosLosLentes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

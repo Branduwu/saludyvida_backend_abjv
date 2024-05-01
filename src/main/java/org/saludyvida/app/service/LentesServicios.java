@@ -10,4 +10,5 @@ public interface LentesServicios {
     Lentes guardarLente(Lentes lente);
     Lentes actualizarLente(Lentes lente, Long id);
     void eliminarLente(Long id);
+	List<Lentes> obtenerTodosLosLentes();
 }

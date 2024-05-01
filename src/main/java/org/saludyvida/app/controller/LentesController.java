@@ -13,6 +13,7 @@ import java.util.List;
 public class LentesController {
 
     private final LentesServicios lenteServicio;
+	@SuppressWarnings("unused")
 	private LentesServicios lentesServicio;
 
     public LentesController(LentesServicios lentesServicio) {

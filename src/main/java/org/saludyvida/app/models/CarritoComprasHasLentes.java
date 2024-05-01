@@ -40,7 +40,12 @@ public class CarritoComprasHasLentes {
 }
    class CarritoComprasHasLentesId implements Serializable{
 	   
-	   @ManyToOne
+	   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1682067346547342984L;
+
+	@ManyToOne
 
 		@JoinColumn(name = "id_carrito")
 		private CarritoCompra carritoComprarrito;

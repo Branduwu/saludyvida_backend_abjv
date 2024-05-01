@@ -16,5 +16,15 @@ public class TiposDePago {
 	@JoinColumn(name = "id_usuarios")
 	private Usuarios usuarios;
 
+	public Object getDescripcionTipoPago() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setDescripcionTipoPago(Object descripcionTipoPago) {
+		// TODO Auto-generated method stub
+		
+	}
+
     // Constructores, getters y setters
 }

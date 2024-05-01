@@ -1,50 +1,63 @@
 package org.saludyvida.app.controller;
 
 import org.saludyvida.app.models.Tarjetas;
-import org.saludyvida.app.service.TarjetasServicios;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.saludyvida.app.service.TarjetasServicio;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/tarjetas")
+@Controller
+@RequestMapping("/tarjetas")
 public class TarjetasController {
 
-    private final TarjetasServicios tarjetasServicio;
+    @Autowired
+    private TarjetasServicio tarjetasServicio;
 
-    public TarjetasController(TarjetasServicios tarjetasServicio) {
-        this.tarjetasServicio = tarjetasServicio;
+    @GetMapping("/usuario/{usuarioId}")
+    public String obtenerTarjetasPorUsuario(@PathVariable Long usuarioId, Model model) {
+        List<Tarjetas> tarjetas = tarjetasServicio.obtenerTarjetasPorUsuario(usuarioId);
+        model.addAttribute("tarjetas", tarjetas);
+        return "listaTarjetas";
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Tarjetas> obtenerTarjetaPorId(@PathVariable Long id) {
+    public String obtenerTarjetaPorId(@PathVariable Long id, Model model) {
         Tarjetas tarjeta = tarjetasServicio.obtenerTarjetaPorId(id);
-        return ResponseEntity.ok(tarjeta);
+        model.addAttribute("tarjeta", tarjeta);
+        return "detallesTarjeta";
     }
 
-    @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<Tarjetas>> obtenerTarjetasPorUsuario(@PathVariable Long usuarioId) {
-        List<Tarjetas> tarjetas = tarjetasServicio.obtenerTarjetasPorUsuario(usuarioId);
-        return ResponseEntity.ok(tarjetas);
+    @GetMapping("/nueva")
+    public String mostrarFormularioNuevaTarjeta(Model model) {
+        model.addAttribute("tarjeta", new Tarjetas());
+        return "formNuevaTarjeta";
     }
 
-    @PostMapping
-    public ResponseEntity<Tarjetas> crearTarjeta(@RequestBody Tarjetas tarjeta) {
-        Tarjetas tarjetaCreada = tarjetasServicio.guardarTarjeta(tarjeta);
-        return ResponseEntity.status(HttpStatus.CREATED).body(tarjetaCreada);
+    @PostMapping("/guardar")
+    public String guardarTarjeta(@ModelAttribute Tarjetas tarjeta) {
+        tarjetasServicio.guardarTarjeta(tarjeta);
+        return "redirect:/tarjetas/" + tarjeta.getId();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Tarjetas> actualizarTarjeta(@PathVariable Long id, @RequestBody Tarjetas tarjeta) {
-        Tarjetas tarjetaActualizada = tarjetasServicio.actualizarTarjeta(tarjeta, id);
-        return ResponseEntity.ok(tarjetaActualizada);
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioEditarTarjeta(@PathVariable Long id, Model model) {
+        Tarjetas tarjeta = tarjetasServicio.obtenerTarjetaPorId(id);
+        model.addAttribute("tarjeta", tarjeta);
+        return "formEditarTarjeta";
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarTarjeta(@PathVariable Long id) {
+    @PostMapping("/actualizar/{id}")
+    public String actualizarTarjeta(@ModelAttribute Tarjetas tarjeta, @PathVariable Long id) {
+        tarjetasServicio.actualizarTarjeta(tarjeta, id);
+        return "redirect:/tarjetas/" + tarjeta.getId();
+    }
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminarTarjeta(@PathVariable Long id) {
         tarjetasServicio.eliminarTarjeta(id);
-        return ResponseEntity.noContent().build();
+        return "redirect:/tarjetas";
     }
 }

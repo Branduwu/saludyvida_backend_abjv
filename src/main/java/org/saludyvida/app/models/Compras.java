@@ -23,5 +23,10 @@ public class Compras {
     @Column(name = "pago_total")
     private Long pago_total;
 
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
     // Constructores, getters y setters
 }

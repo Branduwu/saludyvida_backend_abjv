@@ -64,6 +64,11 @@ public class ComprasHasLentes {
 }
 @Embeddable
 class ComprasHasLentesId implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3853616467808126624L;
+
 	@ManyToOne
 
 	@JoinColumn(name = "compras_id_compras")

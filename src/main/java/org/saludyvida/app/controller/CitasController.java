@@ -1,6 +1,6 @@
 package org.saludyvida.app.controller;
 
-import org.saludyvida.app.models.Citas;
+/*import org.saludyvida.app.models.Citas;
 import org.saludyvida.app.service.CitaServicios;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -57,4 +57,4 @@ public class CitasController {
         citaServicio.eliminarCita(id);
         return ResponseEntity.noContent().build();
     }
-}
+}*/

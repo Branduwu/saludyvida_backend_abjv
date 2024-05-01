@@ -24,5 +24,40 @@ public class Tarjetas {
 	@JoinColumn(name = "id_usuarios")
 	private Usuarios usuarios;
 
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getNumeroTarjeta() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getFechaExpiracion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setNumeroTarjeta(Object numeroTarjeta) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setFechaExpiracion(Object fechaExpiracion) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Object getCvv() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setCvv(Object cvv) {
+		// TODO Auto-generated method stub
+		
+	}
+
     // Constructores, getters y setters
 }

@@ -27,7 +27,7 @@ public class LentesHasCategorias {
 	}
 
 	public void setId(LenteCategoriaId id) {
-		id = id;
+		this.id = id;
 	}
 
 	@Override
@@ -52,6 +52,11 @@ public class LentesHasCategorias {
 } 
 @Embeddable
 class LenteCategoriaId implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7941624309336371116L;
+
 	@ManyToOne
 
 	@JoinColumn(name = "id_lentes")

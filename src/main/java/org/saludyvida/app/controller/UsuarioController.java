@@ -1,50 +1,67 @@
 package org.saludyvida.app.controller;
-
 import org.saludyvida.app.models.Usuarios;
 import org.saludyvida.app.service.UsuarioServicios;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
-
-@RestController
-@RequestMapping("/api/usuarios")
+@Controller
 public class UsuarioController {
 
-    private final UsuarioServicios usuarioServicio;
+   
+    @Autowired
+    private UsuarioServicios usuarioService;
 
-    public UsuarioController(UsuarioServicios usuarioServicio) {
-        this.usuarioServicio = usuarioServicio;
+    @GetMapping("/registro")
+    public String mostrarFormularioRegistro(Model model) {
+        model.addAttribute("usuario", new Usuarios());
+        return "registro";
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Usuarios> obtenerUsuarioPorId(@PathVariable Long id) {
-        Usuarios usuario = usuarioServicio.obtenerUsuarioPorId(id);
-        return ResponseEntity.ok(usuario);
+    @PostMapping("/registro")
+    public String registrarUsuario(Usuarios usuario) {
+    	usuarioService.guardarUsuario(usuario);
+        return "redirect:/login";
     }
 
-    @GetMapping
-    public ResponseEntity<List<Usuarios>> obtenerUsuarios(@RequestParam(required = false) Boolean esActivo) {
-        List<Usuarios> usuarios = usuarioServicio.obtenerTodosLosUsuarios(esActivo);
-        return ResponseEntity.ok(usuarios);
+    @GetMapping("/login")
+    public String mostrarFormularioLogin() {
+        return "login";
     }
 
-    @PostMapping
-    public ResponseEntity<Usuarios> crearUsuario(@RequestBody Usuarios usuario) {
-        Usuarios usuarioCreado = usuarioServicio.guardarUsuario(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioCreado);
+    @GetMapping("/usuarios/{id}")
+    public String mostrarDetallesUsuario(@PathVariable Long id, Model model) {
+        Usuarios usuario = usuarioService.obtenerUsuarioPorId(id);
+        model.addAttribute("usuario", usuario);
+        return "detallesUsuario";
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Usuarios> actualizarUsuario(@PathVariable Long id, @RequestBody Usuarios usuario) {
-        Usuarios usuarioActualizado = usuarioServicio.actualizarUsuario(usuario, id);
-        return ResponseEntity.ok(usuarioActualizado);
+    @GetMapping("/usuarios/editar/{id}")
+    public String mostrarFormularioEditarUsuario(@PathVariable Long id, Model model) {
+        Usuarios usuario = usuarioService.obtenerUsuarioPorId(id);
+        model.addAttribute("usuario", usuario);
+        return "editarUsuario";
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarUsuario(@PathVariable Long id) {
-        usuarioServicio.eliminarUsuario(id);
-        return ResponseEntity.noContent().build();
+    @PostMapping("/usuarios/editar/{id}")
+    public String actualizarUsuario(Usuarios usuario, @PathVariable Long id) {
+    	usuarioService.actualizarUsuario(usuario, id);
+        return "redirect:/usuarios/{id}";
+    }
+
+    @GetMapping("/usuarios/eliminar/{id}")
+    public String eliminarUsuario(@PathVariable Long id) {
+    	usuarioService.eliminarUsuario(id);
+        return "redirect:/usuarios";
+    }
+
+    @GetMapping("/usuarios")
+    public String listarUsuarios(Model model) {
+        model.addAttribute("usuariosActivos", usuarioService.obtenerUsuariosActivos());
+        model.addAttribute("usuariosInactivos", usuarioService.obtenerUsuariosInactivos());
+        return "listaUsuarios";
     }
 }

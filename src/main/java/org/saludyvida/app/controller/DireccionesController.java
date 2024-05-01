@@ -1,50 +1,63 @@
 package org.saludyvida.app.controller;
 
 import org.saludyvida.app.models.Direcciones;
-import org.saludyvida.app.service.DireccionesServicios;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.saludyvida.app.service.DireccionesServicio;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/direcciones")
+@Controller
+@RequestMapping("/direcciones")
 public class DireccionesController {
 
-    private final DireccionesServicios direccionesServicio;
+    @Autowired
+    private DireccionesServicio direccionesServicio;
 
-    public DireccionesController(DireccionesServicios direccionesServicio) {
-        this.direccionesServicio = direccionesServicio;
+    @GetMapping("/usuario/{usuarioId}")
+    public String obtenerDireccionesPorUsuario(@PathVariable Long usuarioId, Model model) {
+        List<Direcciones> direcciones = direccionesServicio.obtenerDireccionesPorUsuario(usuarioId);
+        model.addAttribute("direcciones", direcciones);
+        return "listaDirecciones";
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Direcciones> obtenerDireccionPorId(@PathVariable Long id) {
+    public String obtenerDireccionPorId(@PathVariable Long id, Model model) {
         Direcciones direccion = direccionesServicio.obtenerDireccionPorId(id);
-        return ResponseEntity.ok(direccion);
+        model.addAttribute("direccion", direccion);
+        return "detallesDireccion";
     }
 
-    @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<Direcciones>> obtenerDireccionesPorUsuario(@PathVariable Long usuarioId) {
-        List<Direcciones> direcciones = direccionesServicio.obtenerDireccionesPorUsuario(usuarioId);
-        return ResponseEntity.ok(direcciones);
+    @GetMapping("/nueva")
+    public String mostrarFormularioNuevaDireccion(Model model) {
+        model.addAttribute("direccion", new Direcciones());
+        return "formNuevaDireccion";
     }
 
-    @PostMapping
-    public ResponseEntity<Direcciones> crearDireccion(@RequestBody Direcciones direccion) {
-        Direcciones direccionCreada = direccionesServicio.guardarDireccion(direccion);
-        return ResponseEntity.status(HttpStatus.CREATED).body(direccionCreada);
+    @PostMapping("/guardar")
+    public String guardarDireccion(@ModelAttribute Direcciones direccion) {
+        direccionesServicio.guardarDireccion(direccion);
+        return "redirect:/direcciones/" + direccion.getId();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Direcciones> actualizarDireccion(@PathVariable Long id, @RequestBody Direcciones direccion) {
-        Direcciones direccionActualizada = direccionesServicio.actualizarDireccion(direccion, id);
-        return ResponseEntity.ok(direccionActualizada);
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioEditarDireccion(@PathVariable Long id, Model model) {
+        Direcciones direccion = direccionesServicio.obtenerDireccionPorId(id);
+        model.addAttribute("direccion", direccion);
+        return "formEditarDireccion";
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarDireccion(@PathVariable Long id) {
+    @PostMapping("/actualizar/{id}")
+    public String actualizarDireccion(@ModelAttribute Direcciones direccion, @PathVariable Long id) {
+        direccionesServicio.actualizarDireccion(direccion, id);
+        return "redirect:/direcciones/" + direccion.getId();
+    }
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminarDireccion(@PathVariable Long id) {
         direccionesServicio.eliminarDireccion(id);
-        return ResponseEntity.noContent().build();
+        return "redirect:/direcciones";
     }
 }

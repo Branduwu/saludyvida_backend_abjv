@@ -1,11 +1,13 @@
 package org.saludyvida.app.repository;
 
+import org.saludyvida.app.models.Tarjetas;
+import org.saludyvida.app.models.Usuarios;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
-import org.saludyvida.app.models.Tarjetas;
-import org.springframework.data.jpa.repository.JpaRepository;
-
+@Repository
 public interface TarjetasRepository extends JpaRepository<Tarjetas, Long> {
-    List<Tarjetas> findByUsuariosIdUsuarios(Long usuarioId);
-    // Otros métodos de consulta personalizados si los necesitas
+    List<Tarjetas> findByUsuarios(Usuarios usuario);
 }

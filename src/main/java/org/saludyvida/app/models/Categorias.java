@@ -14,5 +14,15 @@ public class Categorias {
     @Column(name = "material")
     private String material;
 
+	public Object getNombre() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setNombre(Object nombre) {
+		// TODO Auto-generated method stub
+		
+	}
+
     // Constructores, getters y setters
 }

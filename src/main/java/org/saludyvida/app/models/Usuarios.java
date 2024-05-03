@@ -41,6 +41,60 @@ public class Usuarios {
     @JoinColumn(name = "id_tipo")
     private TipoUsuario tipoUsuario;
 
+
+	public Object getNombre() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public Object getCorreo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public Object isEstado() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public void setNombre(Object nombre) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void setCorreo(Object correo2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void setEstado(Object estado) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public String getEstatus() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public Object getApellidos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public void setApellidos(Object apellidos2) {
+		// TODO Auto-generated method stub
+		
+	}
+
     /*
     
     @ManyToOne

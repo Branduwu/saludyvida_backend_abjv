@@ -10,6 +10,10 @@ public class Compras {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_compras;
+    
+    @ManyToOne
+	@JoinColumn(name = "id_usuarios")
+	private Usuarios usuarios;
 
     @Column(name = "Id_usuario")
     private Long id_usuario;

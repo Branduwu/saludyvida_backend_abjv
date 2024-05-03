@@ -3,13 +3,13 @@ package org.saludyvida.app.controller;
 import org.saludyvida.app.models.Direcciones;
 import org.saludyvida.app.service.DireccionesServicio;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/direcciones")
 public class DireccionesController {
 

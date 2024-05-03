@@ -3,17 +3,23 @@ package org.saludyvida.app.service.impl;
 import java.util.List;
 
 import org.saludyvida.app.models.Usuarios;
+import org.saludyvida.app.repository.UsuariosRepository;
 import org.saludyvida.app.service.UsuarioServicios;
 import org.springframework.stereotype.Service;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class UsuarioServicioImpl implements UsuarioServicios {
 
-	@Override
-	public Usuarios obtenerUsuarioPorId(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Autowired
+    private UsuariosRepository usuariosRepository;
+
+    @Override
+    public Usuarios obtenerUsuarioPorId(Long id) {
+        return usuariosRepository.findById(id).orElse(null);
+    }
 
 	@Override
 	public Usuarios obtenerUsuarioPorCorreo(String correo) {

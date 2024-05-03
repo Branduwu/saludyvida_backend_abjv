@@ -3,13 +3,12 @@ package org.saludyvida.app.controller;
 import org.saludyvida.app.models.Lentes;
 import org.saludyvida.app.service.LentesServicios;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/productos")
 public class ProductoController {
 

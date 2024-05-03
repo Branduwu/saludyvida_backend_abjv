@@ -1,1 +1,0 @@
-package org.saludyvida.app.config;

@@ -3,13 +3,13 @@ package org.saludyvida.app.controller;
 import org.saludyvida.app.models.Tarjetas;
 import org.saludyvida.app.service.TarjetasServicio;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/tarjetas")
 public class TarjetasController {
 

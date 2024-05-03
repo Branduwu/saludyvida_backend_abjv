@@ -3,11 +3,11 @@ package org.saludyvida.app.controller;
 import org.saludyvida.app.models.TiposDePago;
 import org.saludyvida.app.service.TiposDePagoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/tiposDePago")
 public class TipoDePagoController {
 

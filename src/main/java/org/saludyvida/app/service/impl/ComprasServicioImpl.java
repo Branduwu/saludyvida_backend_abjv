@@ -44,4 +44,10 @@ public class ComprasServicioImpl implements ComprasServicios {
     public void eliminarCompra(Long id) {
         // Implementación
     }
+
+	@Override
+	public List<Compras> obtenerTodasLasCompras() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

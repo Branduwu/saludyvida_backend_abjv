@@ -11,4 +11,5 @@ public interface ComprasServicios {
     Compras guardarCompra(Compras compra);
     Compras actualizarCompra(Compras compra, Long id);
     void eliminarCompra(Long id);
+	List<Compras> obtenerTodasLasCompras();
 }
